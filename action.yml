@@ -23,8 +23,7 @@ runs:
       run: |
         cd $GITHUB_ACTION_PATH
         ./env/init.sh
-        echo $PWD
-        docker-compose -f=./env/docker-compose.yml up -d
+        docker-compose -f ./env/docker-compose.yml up -d
     - name: install cli
       shell: bash
       run: |
