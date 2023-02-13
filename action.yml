@@ -9,6 +9,10 @@ inputs:
     description: "path to service Dockerfile"
     required: false
     default: ""
+  service-go-build-args:
+    description: "service build arguments"
+    required: false
+    default: "-cover"
 
 runs:
   using: "composite"
@@ -32,6 +36,8 @@ runs:
         cd $GITHUB_ACTION_PATH
         ./env/init.sh
         docker-compose -f ./env/docker-compose.yml up -d
+      env:
+        GOBUILD_ARGS: ${{ inputs.service-go-build-args }}
     - name: install cli
       shell: bash
       run: |
@@ -49,6 +55,9 @@ runs:
       run: |
         cd $GITHUB_ACTION_PATH
         npm start
+    - name: copy coverage file
+      shell: bash
+      run: cp -R $GITHUB_ACTION_PATH/env/.data/vault/coverage .
     - name: Collect docker logs
       if: ${{ failure() }}
       uses: jwalton/gh-docker-logs@v2

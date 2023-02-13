@@ -27,7 +27,23 @@ if [ -z "$find_string" ]; then
   exit 1
 fi
 
-# replace image attribute with build path
-sub_cmd='{sub("'$find_string'","build: '$GITHUB_WORKSPACE/$service_image_path'")}1'
-awk "$sub_cmd" "$current_dir/docker-compose.yml" >"$current_dir/docker-compose.yml".tmp &&
-  mv "$current_dir/docker-compose.yml".tmp "$current_dir/docker-compose.yml"
+# replace image with build settings
+# todo: support multiple services
+#build:
+#  context: .
+#  args:
+#    GOBUILD_ARGS: ${GOBUILD_ARGS}
+
+dc_file="$current_dir/docker-compose.yml"
+
+sub_cmd='{sub("'$find_string'","build:")}1'
+awk "$sub_cmd" $dc_file >"$dc_file.tmp" && mv "$dc_file.tmp" $dc_file
+
+sub_cmd='{sub("#  context: .","  context: '$GITHUB_WORKSPACE/$service_image_path'")}1'
+awk "$sub_cmd" $dc_file >"$dc_file.tmp" && mv "$dc_file.tmp" $dc_file
+
+sub_cmd='{sub("#  args:","  args:")}1'
+awk "$sub_cmd" $dc_file >"$dc_file.tmp" && mv "$dc_file.tmp" $dc_file
+
+sub_cmd='{sub("#    GOBUILD_ARGS: ${GOBUILD_ARGS}","    GOBUILD_ARGS: ${GOBUILD_ARGS}")}1'
+awk "$sub_cmd" $dc_file >"$dc_file.tmp" && mv "$dc_file.tmp" $dc_file

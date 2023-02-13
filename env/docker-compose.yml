@@ -39,8 +39,13 @@ services:
 
   vault:
     image: ghcr.io/findy-network/findy-agent-vault:latest
+    #build:
+    #  context: .
+    #  args:
+    #    GOBUILD_ARGS: ${GOBUILD_ARGS}
     volumes:
       - ./cert:/grpc
+      - .data/vault/coverage:/coverage
     depends_on:
       - vault-db
       - core
