@@ -1,0 +1,54 @@
+name: "E2E test"
+description: "E2E test for full agency functionality acceptance testing."
+inputs:
+  service:
+    description: "service to replace"
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18.12'
+    - name: set chrome version
+      shell: bash
+      run: |
+        full_version=$(google-chrome --product-version)
+        echo "chrome_version=$(echo "${full_version%.*.*.*}")" >> $GITHUB_ENV
+    - name: init env
+      shell: bash
+      run: |
+        cd $GITHUB_ACTION_PATH
+        ./env/init.sh
+        docker-compose up -d -f=./env/docker-compose.yml
+    - name: install cli
+      shell: bash
+      run: |
+        curl https://raw.githubusercontent.com/findy-network/findy-agent-cli/HEAD/install.sh > install.sh
+        chmod a+x install.sh
+        sudo ./install.sh -b /bin
+    - name: install deps
+      shell: bash
+      run: |
+        cd $GITHUB_ACTION_PATH
+        npm ci
+        npm install chromedriver@"${{ env.chrome_version }}" --legacy-peer-deps
+    - name: test
+      shell: bash
+      run: |
+        cd $GITHUB_ACTION_PATH
+        npm start
+    - name: Collect docker logs
+      if: ${{ failure() }}
+      uses: jwalton/gh-docker-logs@v2
+      with:
+        dest: './tests_output/docker-logs'
+    - name: archive logs
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: e2e-logs
+        path: tests_output
