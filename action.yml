@@ -57,7 +57,7 @@ runs:
         npm start
     - name: copy coverage file
       shell: bash
-      run: cp -R $GITHUB_ACTION_PATH/env/.data/vault/coverage .
+      run: sudo cp -R $GITHUB_ACTION_PATH/env/.data/vault/coverage .
     - name: Collect docker logs
       if: ${{ failure() }}
       uses: jwalton/gh-docker-logs@v2
