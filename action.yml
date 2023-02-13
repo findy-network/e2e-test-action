@@ -59,17 +59,17 @@ runs:
       shell: bash
       run: |
         cd $GITHUB_ACTION_PATH
-        docker-compose -f ./env/docker-compose.yml stop
+        docker-compose -f ./env/docker-compose.yml stop -t 10
     - name: copy coverage file
       shell: bash
       run: sudo cp -R $GITHUB_ACTION_PATH/env/.data/vault/coverage .
     - name: Collect docker logs
-      if: ${{ failure() }}
+      if: ${{ always() }}
       uses: jwalton/gh-docker-logs@v2
       with:
         dest: './tests_output/docker-logs'
     - name: archive logs
-      if: ${{ failure() }}
+      if: ${{ always() }}
       uses: actions/upload-artifact@v2
       with:
         name: e2e-logs
