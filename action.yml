@@ -55,6 +55,11 @@ runs:
       run: |
         cd $GITHUB_ACTION_PATH
         npm start
+    - name: take env down
+      shell: bash
+      run: |
+        cd $GITHUB_ACTION_PATH
+        docker-compose -f ./env/docker-compose.yml down
     - name: copy coverage file
       shell: bash
       run: sudo cp -R $GITHUB_ACTION_PATH/env/.data/vault/coverage .
