@@ -65,6 +65,10 @@ services:
 
   pwa:
     image: ghcr.io/findy-network/findy-wallet-pwa/local:latest
+    #build:
+    #  context: .
+    #  args:
+    #    GOBUILD_ARGS: ${GOBUILD_ARGS}
     ports:
       - '3000:80'
     depends_on:
