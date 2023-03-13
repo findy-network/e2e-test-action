@@ -70,7 +70,7 @@ runs:
         dest: './tests_output/docker-logs'
     - name: archive logs
       if: ${{ always() }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: e2e-logs
         path: tests_output
