@@ -39,10 +39,10 @@ services:
 
   vault:
     image: ghcr.io/findy-network/findy-agent-vault:latest
-    #build:
-    #  context: .
-    #  args:
-    #    GOBUILD_ARGS: ${GOBUILD_ARGS}
+    #vault build:
+    #vault   context: .
+    #vault   args:
+    #vault     GOBUILD_ARGS: ${GOBUILD_ARGS}
     volumes:
       - ./cert:/grpc
       - .data/vault/coverage:/coverage
@@ -65,10 +65,10 @@ services:
 
   pwa:
     image: ghcr.io/findy-network/findy-wallet-pwa/local:latest
-    #build:
-    #  context: .
-    #  args:
-    #    GOBUILD_ARGS: ${GOBUILD_ARGS}
+    #pwa build:
+    #pwa   context: .
+    #pwa   args:
+    #pwa     GOBUILD_ARGS: ${GOBUILD_ARGS}
     ports:
       - '3000:80'
     depends_on:
