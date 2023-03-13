@@ -22,6 +22,10 @@ if [[ "$service" == "vault" ]]; then
   find_string="image: ghcr.io/findy-network/findy-agent-vault:latest"
 fi
 
+if [[ "$service" == "pwa" ]]; then
+  find_string="image: ghcr.io/findy-network/findy-wallet-pwa/local:latest"
+fi
+
 if [ -z "$find_string" ]; then
   echo "ERROR: invalid service"
   exit 1
