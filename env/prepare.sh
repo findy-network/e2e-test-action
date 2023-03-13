@@ -51,3 +51,5 @@ awk "$sub_cmd" $dc_file >"$dc_file.tmp" && mv "$dc_file.tmp" $dc_file
 
 sub_cmd='{sub("#    GOBUILD_ARGS","    GOBUILD_ARGS")}1'
 awk "$sub_cmd" $dc_file >"$dc_file.tmp" && mv "$dc_file.tmp" $dc_file
+
+cat $dc_file
