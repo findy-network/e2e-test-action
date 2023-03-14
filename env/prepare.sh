@@ -24,11 +24,14 @@ if [ -z "$service_dockerfile" ]; then
 fi
 
 find_string=""
-if [[ "$service" == "vault" ]]; then
-  find_string="image: ghcr.io/findy-network/findy-agent-vault:latest"
-fi
 
-if [[ "$service" == "pwa" ]]; then
+if [[ "$service" == "core" ]]; then
+  find_string="image: ghcr.io/findy-network/findy-agent:latest"
+elif [[ "$service" == "auth" ]]; then
+  find_string="image: ghcr.io/findy-network/findy-agent-auth:latest"
+elif [[ "$service" == "vault" ]]; then
+  find_string="image: ghcr.io/findy-network/findy-agent-vault:latest"
+elif [[ "$service" == "pwa" ]]; then
   find_string="image: ghcr.io/findy-network/findy-wallet-pwa/local:latest"
 fi
 

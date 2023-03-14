@@ -3,6 +3,11 @@ services:
 
   core:
     image: ghcr.io/findy-network/findy-agent:latest
+    #core build:
+    #core   context: .
+    #core   dockerfile: Dockerfile
+    #core   args:
+    #core     GOBUILD_ARGS: ${GOBUILD_ARGS}
     volumes:
       - ./cert:/grpc
       - .data/agent:/root
@@ -25,6 +30,11 @@ services:
 
   auth:
     image: ghcr.io/findy-network/findy-agent-auth:latest
+    #auth build:
+    #auth   context: .
+    #auth   dockerfile: Dockerfile
+    #auth   args:
+    #auth     GOBUILD_ARGS: ${GOBUILD_ARGS}
     volumes:
       - ./cert:/grpc
       - .data/auth:/data
