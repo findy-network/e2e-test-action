@@ -64,17 +64,20 @@ runs:
       run: |
         cd $GITHUB_ACTION_PATH
         docker-compose -f ./env/docker-compose.yml stop -t 10
-    - name: copy coverage file
+    - name: copy go coverage file
       shell: bash
       run: sudo cp -R $GITHUB_ACTION_PATH/env/.data/${{ inputs.service }}/coverage .
+    - name: copy nightwatch logs
+      shell: bash
+      run: sudo cp -R $GITHUB_ACTION_PATH/tests_output .
     - name: Collect docker logs
-      if: ${{ always() }}
+      if: ${{ failure() }}
       uses: jwalton/gh-docker-logs@v2
       with:
-        dest: '$GITHUB_ACTION_PATH/tests_output/docker-logs'
+        dest: './tests_output/docker-logs'
     - name: archive logs
-      if: ${{ always() }}
+      if: ${{ failure() }}
       uses: actions/upload-artifact@v3
       with:
         name: e2e-logs
-        path: $GITHUB_ACTION_PATH/tests_output
+        path: ./tests_output
