@@ -25,7 +25,10 @@ fi
 
 find_string=""
 
-if [[ "$service" == "core" ]]; then
+if [[ "$service" == "cli" ]]; then
+  echo "Nothing to do, testing CLI."
+  return 0
+elif [[ "$service" == "core" ]]; then
   find_string="image: ghcr.io/findy-network/findy-agent:latest"
 elif [[ "$service" == "auth" ]]; then
   find_string="image: ghcr.io/findy-network/findy-agent-auth:latest"
