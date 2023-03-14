@@ -22,6 +22,11 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
+    - name: prepare log folders
+      shell: bash
+      run: |
+        mkdir -p ./tests_output/docker-logs
+        mkdir -p $GITHUB_ACTION_PATH/env/.data/${{ inputs.service }}/coverage
     - name: prepare docker-compose file
       if: ${{ inputs.service != '' }}
       shell: bash
