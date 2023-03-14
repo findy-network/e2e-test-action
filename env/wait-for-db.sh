@@ -11,19 +11,13 @@ getServerStatus() {
   fi
 }
 
-# wait for db
-while ! nc -z $TARGET 5432; do
-  echo 'wait for db'
-  sleep 1
-done
-
 # wait for vault
 NOW=${SECONDS}
-printf "Wait until server is up"
+printf "Wait until vault is up"
 while ! getServerStatus; do
   printf "."
   waitTime=$(($SECONDS - $NOW))
-  if ((${waitTime} >= 60)); then
+  if ((${waitTime} >= 360)); then
     printf "\nServer failed to start.\n"
     exit 1
   fi

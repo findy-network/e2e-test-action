@@ -47,21 +47,23 @@ runs:
         docker-compose -f ./env/docker-compose.yml up -d
       env:
         GOBUILD_ARGS: ${{ inputs.service-go-build-args }}
-    - name: wait for db
-      shell: bash
-      run: $GITHUB_ACTION_PATH/env/wait-for-db.sh localhost
+    - name: setup go # needed to build cli
+      if: ${{ inputs.service == 'cli' }}
+      uses: actions/setup-go@v3
+      with:
+        go-version-file: './go.mod'
     - name: install cli
       shell: bash
-      run: |
-        curl https://raw.githubusercontent.com/findy-network/findy-agent-cli/HEAD/install.sh > install.sh
-        chmod a+x install.sh
-        sudo ./install.sh -b /bin
+      run: $GITHUB_ACTION_PATH/env/install-cli.sh ${{ inputs.service }}
     - name: install deps
       shell: bash
       run: |
         cd $GITHUB_ACTION_PATH
         npm ci
         npm install chromedriver@"${{ env.chrome_version }}"
+    - name: wait for db
+      shell: bash
+      run: $GITHUB_ACTION_PATH/env/wait-for-db.sh localhost
     - name: test
       shell: bash
       run: |
