@@ -41,6 +41,7 @@ services:
     image: ghcr.io/findy-network/findy-agent-vault:latest
     #vault build:
     #vault   context: .
+    #vault   dockerfile: Dockerfile
     #vault   args:
     #vault     GOBUILD_ARGS: ${GOBUILD_ARGS}
     volumes:
@@ -67,6 +68,7 @@ services:
     image: ghcr.io/findy-network/findy-wallet-pwa/local:latest
     #pwa build:
     #pwa   context: .
+    #pwa   dockerfile: Dockerfile
     #pwa   args:
     #pwa     GOBUILD_ARGS: ${GOBUILD_ARGS}
     ports:

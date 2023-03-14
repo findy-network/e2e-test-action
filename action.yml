@@ -5,10 +5,14 @@ inputs:
     description: "service to replace"
     required: false
     default: ""
-  service-image-path:
-    description: "path to service Dockerfile"
+  service-context:
+    description: "path to image context, relative to repository root"
     required: false
-    default: ""
+    default: "./"
+  service-dockerfile:
+    description: "path to image dockerfile, relative to context"
+    required: false
+    default: "Dockerfile"
   service-go-build-args:
     description: "service build arguments"
     required: false
@@ -21,7 +25,7 @@ runs:
     - name: prepare docker-compose file
       if: ${{ inputs.service != '' }}
       shell: bash
-      run: $GITHUB_ACTION_PATH/env/prepare.sh ${{ inputs.service }} ${{ inputs.service-image-path }}
+      run: $GITHUB_ACTION_PATH/env/prepare.sh ${{ inputs.service }} ${{ inputs.service-context }} ${{ inputs.service-dockerfile }}
     - uses: actions/setup-node@v3
       with:
         node-version: '18.12'
