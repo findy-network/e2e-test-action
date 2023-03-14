@@ -68,6 +68,7 @@ runs:
       shell: bash
       run: sudo cp -R $GITHUB_ACTION_PATH/env/.data/${{ inputs.service }}/coverage .
     - name: copy nightwatch logs
+      if: ${{ failure() }}
       shell: bash
       run: sudo cp -R $GITHUB_ACTION_PATH/tests_output .
     - name: Collect docker logs
