@@ -47,6 +47,9 @@ runs:
         docker-compose -f ./env/docker-compose.yml up -d
       env:
         GOBUILD_ARGS: ${{ inputs.service-go-build-args }}
+    - name: wait for db
+      shell: bash
+      run: $GITHUB_ACTION_PATH/env/wait-for-db.sh
     - name: install cli
       shell: bash
       run: |
