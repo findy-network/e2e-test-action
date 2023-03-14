@@ -27,6 +27,7 @@ runs:
       run: |
         mkdir -p ./tests_output/docker-logs
         mkdir -p $GITHUB_ACTION_PATH/env/.data/${{ inputs.service }}/coverage
+        echo "GOCOVERDIR=$GITHUB_ACTION_PATH/env/.data/${{ inputs.service }}/coverage" >> $GITHUB_ENV
     - name: prepare docker-compose file
       if: ${{ inputs.service != '' }}
       shell: bash
