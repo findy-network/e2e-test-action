@@ -27,7 +27,7 @@ find_string=""
 
 if [[ "$service" == "cli" ]]; then
   echo "Nothing to do, testing CLI."
-  return 0
+  exit 0
 elif [[ "$service" == "core" ]]; then
   find_string="image: ghcr.io/findy-network/findy-agent:latest"
 elif [[ "$service" == "auth" ]]; then
