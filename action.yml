@@ -49,7 +49,7 @@ runs:
         GOBUILD_ARGS: ${{ inputs.service-go-build-args }}
     - name: wait for db
       shell: bash
-      run: $GITHUB_ACTION_PATH/env/wait-for-db.sh
+      run: $GITHUB_ACTION_PATH/env/wait-for-db.sh localhost
     - name: install cli
       shell: bash
       run: |
