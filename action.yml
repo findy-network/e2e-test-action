@@ -62,9 +62,9 @@ runs:
         cd $GITHUB_ACTION_PATH
         npm ci
         npm install chromedriver@"${{ env.chrome_version }}"
-    # - name: wait for db
-    #   shell: bash
-    #   run: $GITHUB_ACTION_PATH/env/wait-for-db.sh localhost
+    - name: wait for db
+      shell: bash
+      run: $GITHUB_ACTION_PATH/env/wait-for-db.sh "localhost"
     - name: test
       shell: bash
       run: |
