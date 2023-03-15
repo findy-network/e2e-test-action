@@ -1,0 +1,12 @@
+name: test
+on:
+  push:
+
+jobs:
+
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        name: test local action
