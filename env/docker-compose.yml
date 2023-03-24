@@ -11,6 +11,7 @@ services:
     volumes:
       - ./cert:/grpc
       - .data/agent:/root
+      - .data/core/coverage:/coverage
     environment:
       FCLI_POOL_GENESIS_TXN_FILE: ''
       FCLI_POOL_NAME: 'FINDY_FILE_LEDGER'
@@ -38,6 +39,7 @@ services:
     volumes:
       - ./cert:/grpc
       - .data/auth:/data
+      - .data/auth/coverage:/coverage
     depends_on:
       - core
     environment:
