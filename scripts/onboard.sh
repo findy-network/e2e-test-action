@@ -63,6 +63,10 @@ if [ -z "$default_key" ]; then
   default_key=$(findy-agent-cli new-key)
 fi
 
+# download public cert from server
+rm $tls_path/server/server.crt
+echo -n | openssl s_client -connect "$grpc_server" -servername "$grpc_server" | openssl x509 >$tls_path/server/server.crt
+
 echo "Running e2e test for $auth_url (origin: $auth_origin, api: $grpc_server)"
 
 # register web wallet user
