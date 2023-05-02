@@ -16,7 +16,10 @@ set -e
 
 # use specific version of chromedriver
 full_version=$(google-chrome --product-version || echo "")
+
 if [ -z "$full_version" ]; then
+  echo "Unable to detect Chrome version."
+else
   chrome_version=$(echo "${full_version%.*.*.*}")
   npm install chromedriver@$chrome_version
 fi
