@@ -5,6 +5,7 @@
 # E2E_ORG: when defined, new organisation onboarding is skipped
 # E2E_KEY: needed when using either of latter - agent key
 # E2E_CRED_DEF_ID: when defined, cred def creation is skipped (needs E2E_ORG)
+# E2E_SCHEMA_ID: needed for existing schema
 
 # Use when testing with remote host:
 # AGENCY_URL
@@ -134,13 +135,16 @@ echo "::add-mask::$connection_id"
 echo "Invitation created with connection id $connection_id"
 
 cred_def_id=$E2E_CRED_DEF_ID
+sch_id=$E2E_SCHEMA_ID
 if [ -z "$E2E_CRED_DEF_ID" ]; then
-  # create schema
-  echo "Create schema"
-  sch_id=$(findy-agent-cli agent create-schema \
-    --tls-path $tls_path --server $grpc_server \
-    --jwt $org_jwt --name="email" --version=1.0 email)
-  echo "::add-mask::$sch_id"
+  if [ -z "$sch_id" ]; then
+    # create schema
+    echo "Create schema"
+    sch_id=$(findy-agent-cli agent create-schema \
+      --tls-path $tls_path --server $grpc_server \
+      --jwt $org_jwt --name="email" --version=1.0 email)
+    echo "::add-mask::$sch_id"
+  fi
 
   # read schema - make sure it's found in ledger
   echo "Read schema"
@@ -167,7 +171,7 @@ if [ -z "$E2E_CRED_DEF_ID" ]; then
 fi
 
 # store details for testing
-echo {\"jwt\": \"$jwt\", \"user\": \"$user\", \"existing\": $existing, \"organisation\": \"$org\", \"key\": \"$default_key\", \"credDefId\": \"$cred_def_id\" } >$current_dir/../test/e2e.user.json
+echo {\"jwt\": \"$jwt\", \"user\": \"$user\", \"existing\": $existing, \"organisation\": \"$org\", \"key\": \"$default_key\", \"credDefId\": \"$cred_def_id\", \"schemaId\": \"$sch_id\" } >$current_dir/../test/e2e.user.json
 
 # store cred def id to bot template
 cat "$bot_file".template >"$bot_file"

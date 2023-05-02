@@ -35,11 +35,6 @@ runs:
     - uses: actions/setup-node@v3
       with:
         node-version: '18.12'
-    - name: set chrome version
-      shell: bash
-      run: |
-        full_version=$(google-chrome --product-version)
-        echo "chrome_version=$(echo "${full_version%.*.*.*}")" >> $GITHUB_ENV
     - name: init env
       shell: bash
       run: |
@@ -61,7 +56,6 @@ runs:
       run: |
         cd $GITHUB_ACTION_PATH
         npm ci
-        npm install chromedriver@"${{ env.chrome_version }}"
     - name: wait for db
       shell: bash
       run: $GITHUB_ACTION_PATH/env/wait-for-db.sh "localhost"
