@@ -7,3 +7,4 @@ e2e-sa.yaml
 e2e.*.json
 
 node_modules/
+.DS_Store
