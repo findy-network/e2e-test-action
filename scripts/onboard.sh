@@ -15,9 +15,11 @@
 set -e
 
 # use specific version of chromedriver
-full_version=$(google-chrome --product-version)
-chrome_version=$(echo "${full_version%.*.*.*}")
-npm install chromedriver@$chrome_version
+full_version=$(google-chrome --product-version || echo "")
+if [ -z "$full_version" ]; then
+  chrome_version=$(echo "${full_version%.*.*.*}")
+  npm install chromedriver@$chrome_version
+fi
 
 current_dir=$(dirname "$BASH_SOURCE")
 
