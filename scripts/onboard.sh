@@ -13,6 +13,11 @@
 
 set -e
 
+# use specific version of chromedriver
+full_version=$(google-chrome --product-version)
+chrome_version=$(echo "${full_version%.*.*.*}")
+npm install chromedriver@$chrome_version
+
 current_dir=$(dirname "$BASH_SOURCE")
 
 read_timeout="60s"
