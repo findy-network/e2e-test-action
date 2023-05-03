@@ -21,7 +21,7 @@ if [ -z "$full_version" ]; then
   echo "Unable to detect Chrome version."
 else
   chrome_version=$(echo "${full_version%.*.*.*}")
-  npm install chromedriver@$chrome_version || echo "Chromdriver version $chrome_version does not exist."
+  npm install chromedriver@$chrome_version || echo "Chromedriver version $chrome_version does not exist."
 fi
 
 current_dir=$(dirname "$BASH_SOURCE")
