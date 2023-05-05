@@ -54,8 +54,10 @@ if [ -z "$AGENCY_URL" ]; then
   AGENCY_URL="http://localhost:3000"
 fi
 
+echo $AGENCY_URL
+
 # fetch needed env variables from agency deployment
-source <(curl $AGENCY_URL/set-env.sh)
+source /dev/stdin <<<"$(curl -sS $AGENCY_URL/set-env.sh)"
 
 echo "Running e2e test for $FCLI_URL (origin: $FCLI_ORIGIN, api: $FCLI_SERVER)"
 
