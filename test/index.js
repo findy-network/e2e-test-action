@@ -81,26 +81,27 @@ module.exports = {
     const submitBtn = 'button[type=submit]'
     const acceptBtn = '//button[contains(.,"Accept")]'
     const verificationText =
-      '//p[contains(.,"Hello test! I\'m stupid bot who knows you have verified email address!!! I can trust you.")]'
+      '//p[contains(.,"Hello test@example.com! I\'m stupid bot who knows you have verified email address!!! I can trust you.")]'
     const credIcon = 'svg[aria-label=Certificate]'
     login(browser)
       .waitForElementVisible(organisationLabel)
       .click(organisationLabel)
       .useCss()
 
-      // Start bot
-      .waitForElementVisible(messageInput)
-      .click(messageInput)
-      .setValue(messageInput, 'test')
-      .click(submitBtn)
       .useXpath()
       .waitForElementVisible(helloLabel)
+
+      // Greet bot
+      .useCss()
+      .click(messageInput)
+      .setValue(messageInput, 'Hello!')
+      .click(submitBtn)
 
       // Send email value to bot
       .useCss()
       .waitForElementVisible('#message-3')
       .click(messageInput)
-      .setValue(messageInput, 'test')
+      .setValue(messageInput, 'test@example.com')
       .click(submitBtn)
 
       .waitForElementVisible('#message-5')
