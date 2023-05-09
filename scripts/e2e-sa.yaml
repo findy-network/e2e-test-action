@@ -1,12 +1,18 @@
 initial:
-  sends:
-    - data: Hello!
-      no_status: true
-      protocol: basic_message
-  target: IDLE
+  target: START
 name: e2e sa machine
 states:
-  IDLE:
+  START:
+    transitions:
+      - trigger:
+          protocol: connection
+        sends:
+          - data: |
+              Hello!
+            no_status: true
+            protocol: basic_message
+        target: ASK_EMAIL
+  ASK_EMAIL:
     transitions:
       - trigger:
           protocol: basic_message
@@ -57,7 +63,7 @@ states:
             event_data:
               issuing:
                 AttrsJSON: '[{"name":"email","value":"{{.EMAIL}}"}]'
-                CredDefID: <CRED_DEF_ID>
+                CredDefID: ${CRED_DEF_ID}
             protocol: issue_cred
             rule: FORMAT_MEM
         target: WAITING_ISSUING_STATUS
@@ -93,7 +99,7 @@ states:
         trigger:
           protocol: connection
       - sends:
-          - data: '[{"name":"email","credDefId":"<CRED_DEF_ID>"}]'
+          - data: '[{"name":"email","credDefId":"${CRED_DEF_ID}"}]'
             protocol: present_proof
         target: WAITING_EMAIL_PROOF_QA
         trigger:
@@ -114,7 +120,7 @@ states:
             protocol: answer
         target: IDLE
         trigger:
-          data: '[{"name":"email","credDefId":"<CRED_DEF_ID>"}]'
+          data: '[{"name":"email","credDefId":"${CRED_DEF_ID}"}]'
           protocol: present_proof
           rule: NOT_ACCEPT_VALUES
           type_id: ANSWER_NEEDED_PROOF_VERIFY
@@ -123,7 +129,7 @@ states:
             protocol: answer
         target: WAITING2_EMAIL_PROOF
         trigger:
-          data: '[{"name":"email","credDefId":"<CRED_DEF_ID>"}]'
+          data: '[{"name":"email","credDefId":"${CRED_DEF_ID}"}]'
           protocol: present_proof
           rule: ACCEPT_AND_INPUT_VALUES
           type_id: ANSWER_NEEDED_PROOF_VERIFY
