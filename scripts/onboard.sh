@@ -125,13 +125,8 @@ fi
 # store details for testing
 echo {\"jwt\": \"$jwt\", \"user\": \"$user\", \"existing\": $existing, \"organisation\": \"$org\", \"key\": \"$default_key\", \"credDefId\": \"$cred_def_id\", \"schemaId\": \"$sch_id\" } >$current_dir/../test/e2e.user.json
 
-# store cred def id to bot template
-cat "$bot_file".template >"$bot_file"
-sub_cmd='{sub("<CRED_DEF_ID>","'$cred_def_id'")}1'
-awk "$sub_cmd" "$bot_file" >"$bot_file".tmp &&
-  mv "$bot_file".tmp "$bot_file"
-
 # start bot in background
 echo "Starting bot with connection $connection_id"
+export CRED_DEF_ID="$cred_def_id"
 findy-agent-cli bot start --jwt $org_jwt --conn-id $connection_id $bot_file &
 echo "Bot started"
