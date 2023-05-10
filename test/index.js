@@ -21,7 +21,7 @@ const login = browser =>
     .useCss()
 
 module.exports = {
-  afterEach: (browser) => {
+  afterEach: async (browser) => {
 
     // TODO: fails occasionally with error:
     // Error while running .getLogContents() protocol action: This driver instance does
@@ -37,7 +37,7 @@ module.exports = {
     //     })
     //   })
     // )
-    browser.end()
+    await browser.end()
   },
 
   'Check app loads': (browser) => {
