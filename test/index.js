@@ -80,8 +80,9 @@ module.exports = {
     const helloLabel = '//p[contains(.,"Hello!")]'
     const submitBtn = 'button[type=submit]'
     const acceptBtn = '//button[contains(.,"Accept")]'
+    const userEmail = 'test'
     const verificationText =
-      '//p[contains(.,"Hello test@example.com! I\'m stupid bot who knows you have verified email address!!! I can trust you.")]'
+      `//p[contains(.,"Hello ${userEmail}! I\'m stupid bot who knows you have verified email address!!! I can trust you.")]`
     const credIcon = 'svg[aria-label=Certificate]'
     login(browser)
       .waitForElementVisible(organisationLabel)
@@ -101,7 +102,7 @@ module.exports = {
       .useCss()
       .waitForElementVisible('#message-3')
       .click(messageInput)
-      .setValue(messageInput, 'test@example.com')
+      .setValue(messageInput, userEmail)
       .click(submitBtn)
 
       .waitForElementVisible('#message-5')
