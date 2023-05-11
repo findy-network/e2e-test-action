@@ -123,7 +123,7 @@ if [ -z "$E2E_CRED_DEF_ID" ]; then
 fi
 
 # store details for testing
-echo {\"jwt\": \"$jwt\", \"user\": \"$user\", \"existing\": $existing, \"organisation\": \"$org\", \"key\": \"$default_key\", \"credDefId\": \"$cred_def_id\", \"schemaId\": \"$sch_id\" } >$current_dir/../test/e2e.user.json
+echo {\"jwt\": \"$jwt\", \"user\": \"$user\", \"existing\": $existing, \"organisation\": \"$org\", \"key\": \"$FCLI_KEY\", \"credDefId\": \"$cred_def_id\", \"schemaId\": \"$sch_id\" } >$current_dir/../test/e2e.user.json
 
 # start bot in background
 echo "Starting bot with connection $connection_id"
