@@ -40,16 +40,16 @@ module.exports = {
     await browser.end()
   },
 
-  'Check app loads': (browser) => {
-    login(browser)
+  'Check app loads': async (browser) => {
+    await login(browser)
       .useXpath()
       .waitForElementVisible(newInvBtn)
   },
-  'Check connection is done': (browser) => {
+  'Check connection is done': async (browser) => {
     const invitationInput = 'input[placeholder="Enter invitation code"]'
     const confirmBtn = '//button[contains(.,"Confirm")]'
     const invitation = JSON.stringify(invitationContent)
-    login(browser)
+    await login(browser)
       .useXpath()
       .click(addConBtn)
       .useCss()
@@ -61,22 +61,22 @@ module.exports = {
       .useCss()
       .waitForElementVisible(organisationLabel)
   },
-  'Check navigation works': (browser) => {
-    login(browser)
+  'Check navigation works': async (browser) => {
+    await login(browser)
       .useCss()
       .waitForElementVisible(walletLink)
       .click(walletLink)
       .useXpath()
       .waitForElementVisible(credentialsHeader)
   },
-  'Check invalid connection id redirects to home': (browser) => {
-    login(browser)
+  'Check invalid connection id redirects to home': async (browser) => {
+    await login(browser)
       .waitForElementVisible(messageInput)
       .url(`${home}/connections/6e0a9f70-dece-4329-9e1e-93512f24d9dc`)
       .useCss()
       .waitForElementVisible(messageInput)
   },
-  'Check issue and verify works': (browser) => {
+  'Check issue and verify works': async (browser) => {
     const helloLabel = '//p[contains(.,"Hello!")]'
     const submitBtn = 'button[type=submit]'
     const acceptBtn = '//button[contains(.,"Accept")]'
@@ -84,7 +84,7 @@ module.exports = {
     const verificationText =
       `//p[contains(.,"Hello ${userEmail}! I\'m stupid bot who knows you have verified email address!!! I can trust you.")]`
     const credIcon = 'svg[aria-label=Certificate]'
-    login(browser)
+    await login(browser)
       .waitForElementVisible(organisationLabel)
       .click(organisationLabel)
       .useCss()
@@ -138,8 +138,8 @@ module.exports = {
   },
 
   // TODO: use virtual authenticator for all logins
-  'Check webauthn works': (browser) => {
-    browser
+  'Check webauthn works': async (browser) => {
+    await browser
       .url(home)
       .addVirtualAuth() // add virtual authenticator
       .useCss()
@@ -149,7 +149,6 @@ module.exports = {
       .setValue('#user-input', `${user.user}-${Date.now()}`)
       .click('#register-btn')
       .waitForElementVisible('#login-link')
-      .pause(5000)
       .click('#login-link')
       .waitForElementVisible('#login-btn')
       .click('#login-btn')
