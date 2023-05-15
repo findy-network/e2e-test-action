@@ -142,10 +142,15 @@ module.exports = {
     browser
       .url(home)
       .addVirtualAuth() // add virtual authenticator
+      .useCss()
+      .waitForElementVisible('#register-link')
       .click('#register-link')
+      .waitForElementVisible('#register-btn')
       .setValue('#user-input', `${user.user}-${Date.now()}`)
       .click('#register-btn')
+      .waitForElementVisible('#login-link')
       .click('#login-link')
+      .waitForElementVisible('#login-btn')
       .click('#login-btn')
       .useXpath()
       .waitForElementVisible(newInvBtn)
