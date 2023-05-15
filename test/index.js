@@ -151,7 +151,7 @@ module.exports = {
       .waitForElementVisible('#login-link')
 
     let sleepTime = 0
-    while (sleepTime < 10000 && !(await browser.isEnabled('#login-link', { suppressNotFoundErrors: true }))) {
+    while (sleepTime < 10000 && (await browser.getAttribute('#login-link', 'disabled')).value) {
       await browser.pause(1000)
       sleepTime += 1000
     }
