@@ -27,17 +27,17 @@ module.exports = {
     // Error while running .getLogContents() protocol action: This driver instance does
     //not have a valid session ID (did you call WebDriver.quit()?) and may no longer be used.
 
-    browser.isLogAvailable(
-      browser.getLog('browser', async (logEntriesArray) => {
-        console.log('Log length: ' + logEntriesArray.length)
-        logEntriesArray.forEach(function (log) {
-          console.log(
-            '[' + log.level.name + '] ' + log.timestamp + ' : ' + log.message
-          )
-        })
-        await browser.end()
-      })
-    )
+    // browser.isLogAvailable(
+    //   browser.getLog('browser', (logEntriesArray) => {
+    //     console.log('Log length: ' + logEntriesArray.length)
+    //     logEntriesArray.forEach(function (log) {
+    //       console.log(
+    //         '[' + log.level.name + '] ' + log.timestamp + ' : ' + log.message
+    //       )
+    //     })
+    //   })
+    // )
+    await browser.end()
   },
 
   'Check app loads': (browser) => {
@@ -142,6 +142,8 @@ module.exports = {
     browser
       .url(home)
       .addVirtualAuth() // add virtual authenticator
+      .useCss()
+      .waitForElementVisible('#register-link')
       .click('#register-link')
       .waitForElementVisible('#register-btn')
       .setValue('#user-input', `${user.user}-${Date.now()}`)
