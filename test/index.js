@@ -138,8 +138,8 @@ module.exports = {
   },
 
   // TODO: use virtual authenticator for all logins
-  'Check webauthn works': (browser) => {
-    browser
+  'Check webauthn works': async (browser) => {
+    await browser
       .url(home)
       .addVirtualAuth() // add virtual authenticator
       .useCss()
@@ -149,6 +149,14 @@ module.exports = {
       .setValue('#user-input', `${user.user}-${Date.now()}`)
       .click('#register-btn')
       .waitForElementVisible('#login-link')
+
+    let sleepTime = 0
+    while (sleepTime < 10000 && await browser.isEnabled('#login-link')) {
+      await browser.pause(1000)
+      sleepTime += 1000
+    }
+
+    await browser
       .click('#login-link')
       .waitForElementVisible('#login-btn')
       .click('#login-btn')
