@@ -149,7 +149,7 @@ module.exports = {
       .setValue('#user-input', `${user.user}-${Date.now()}`)
       .click('#register-btn')
       .waitForElementVisible('#login-link')
-      .pause(1000)
+      .pause(5000)
       .click('#login-link')
       .waitForElementVisible('#login-btn')
       .click('#login-btn')
