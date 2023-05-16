@@ -148,8 +148,6 @@ module.exports = {
       .waitForElementVisible('#register-btn')
       .setValue('#user-input', `${user.user}-${Date.now()}`)
       .click('#register-btn')
-      .waitForElementVisible('#login-link')
-      .click('#login-link')
       .waitForElementVisible('#login-btn')
       .click('#login-btn')
       .useXpath()
