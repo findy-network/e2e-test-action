@@ -45,7 +45,7 @@ runs:
         GOBUILD_ARGS: ${{ inputs.service-go-build-args }}
     - name: setup go # needed to build cli
       if: ${{ inputs.service == 'cli' }}
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v4
       with:
         go-version-file: './go.mod'
     - name: install cli
