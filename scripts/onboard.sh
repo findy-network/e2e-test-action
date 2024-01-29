@@ -108,6 +108,11 @@ if [ -z "$E2E_CRED_DEF_ID" ]; then
   echo "Read schema"
   schema=$(findy-agent-cli agent get-schema --jwt $org_jwt --schema-id $sch_id --timeout $read_timeout)
 
+  if [ -z "$schema" ]; then
+    echo "Schema creation failed."
+    exit 1
+  fi
+
   echo "Schema read successfully: $schema"
 
   # create cred def
