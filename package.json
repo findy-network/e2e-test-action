@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/findy-network/e2e-test-action#readme",
   "dependencies": {
-    "chromedriver": "^122.0.6",
+    "chromedriver": "^123.0.0",
     "nightwatch": "^3.4.1"
   }
 }
